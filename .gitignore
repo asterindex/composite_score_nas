@@ -30,6 +30,7 @@ results/
 
 # Logs
 *.log
+!bayesian_optimization/results/colab.log  # Зберігати лог Colab для відстеження прогресу
 
 # Jupyter
 .ipynb_checkpoints/
