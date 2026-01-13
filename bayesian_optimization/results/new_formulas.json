@@ -1,0 +1,40 @@
+{
+  "method1_weighted": {
+    "formula": "S = w1\u00b7L_val + w2\u00b7gap + w3\u00b7impr + w4\u00b7loss_cv + w5\u00b7grad_cv + w6\u00b7L_tr_last + w7\u00b7grad_norm",
+    "weights": {
+      "L_val": 0.17890146402242757,
+      "gap": 0.13190046031910846,
+      "impr": 0.2580209739383242,
+      "loss_cv": 0.15592011905998,
+      "grad_cv": 0.1477520506697124,
+      "L_tr_last": 0.09285986225037204,
+      "grad_norm_mean": 0.03464506974007543
+    },
+    "weights_rounded": {
+      "impr": 0.25,
+      "L_val": 0.2,
+      "loss_cv": 0.15,
+      "grad_cv": 0.15,
+      "gap": 0.15,
+      "L_tr_last": 0.05,
+      "grad_norm_mean": 0.05
+    },
+    "description": "\u0412\u0430\u0433\u0438 \u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0456\u0439\u043d\u0456 \u043a\u043e\u0440\u0435\u043b\u044f\u0446\u0456\u0457"
+  },
+  "method2_top3": {
+    "formula": "S = 0.5\u00b7impr + 0.3\u00b7L_val + 0.2\u00b7loss_cv",
+    "weights": {
+      "impr": 0.5,
+      "L_val": 0.3,
+      "loss_cv": 0.2
+    },
+    "description": "\u0422\u0456\u043b\u044c\u043a\u0438 3 \u043d\u0430\u0439\u0441\u0438\u043b\u044c\u043d\u0456\u0448\u0456 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0438"
+  },
+  "method3_baseline": {
+    "formula": "S = L_val",
+    "weights": {
+      "L_val": 1.0
+    },
+    "description": "Baseline \u0434\u043b\u044f \u043f\u043e\u0440\u0456\u0432\u043d\u044f\u043d\u043d\u044f"
+  }
+}
