@@ -1392,6 +1392,15 @@ if __name__ == "__main__":
             pass  # Не на Colab
     
     # Завершення
+    experiment_end_time = datetime.now(timezone.utc)
+    duration = (experiment_end_time - EXPERIMENT_START_TIME).total_seconds()
+    
     print("\n" + "="*60)
-    print("✅ СИНТЕЗ ЗАВЕРШЕНО!")
+    log_print("✅ ЕКСПЕРИМЕНТ ЗАВЕРШЕНО!")
+    log_print(f"⏱️  Тривалість: {duration/3600:.2f} годин ({duration/60:.1f} хвилин)")
+    log_print(f"📝 Повний лог збережено у: {LOG_FILENAME}")
     print("="*60)
+    
+    # Закрити лог файл
+    sys.stdout = tee_logger.terminal
+    tee_logger.close()
