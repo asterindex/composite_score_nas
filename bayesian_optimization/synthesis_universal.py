@@ -36,6 +36,60 @@ from PIL import Image
 import numpy as np
 import time
 import json
+import sys
+from datetime import datetime, timezone
+
+# ============================================
+# Логування з timestamps
+# ============================================
+
+# Ім'я файлу логу на основі часу запуску
+EXPERIMENT_START_TIME = datetime.now(timezone.utc)
+LOG_FILENAME = f"results/experiment_{EXPERIMENT_START_TIME.strftime('%Y%m%d_%H%M%S_UTC')}.log"
+
+class TeeLogger:
+    """Клас для дублювання виводу в консоль і файл"""
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = None
+        self.filename = filename
+        
+    def start(self):
+        """Почати логування"""
+        Path(self.filename).parent.mkdir(parents=True, exist_ok=True)
+        self.log = open(self.filename, 'w', encoding='utf-8', buffering=1)
+        
+    def write(self, message):
+        """Записати повідомлення"""
+        self.terminal.write(message)
+        if self.log:
+            self.log.write(message)
+            
+    def flush(self):
+        """Очистити буфер"""
+        self.terminal.flush()
+        if self.log:
+            self.log.flush()
+            
+    def close(self):
+        """Закрити файл логу"""
+        if self.log:
+            self.log.close()
+
+def get_timestamp():
+    """Повертає поточний UTC timestamp"""
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+def log_print(message, prefix=""):
+    """Print з timestamp"""
+    timestamp = get_timestamp()
+    if prefix:
+        print(f"[{timestamp}] {prefix} {message}")
+    else:
+        print(f"[{timestamp}] {message}")
+
+# Ініціалізувати TeeLogger
+tee_logger = TeeLogger(LOG_FILENAME)
 
 # ============================================
 # Автоматичне завантаження датасету (Colab)
@@ -390,7 +444,7 @@ class ProxyStats:
         
         self.is_ready = True
         self._save_stats()
-        print(f"\n✅ Composite Score калібрацію завершено ({N_WARMUP} trials)")
+        log_print(f"✅ Composite Score калібрацію завершено ({N_WARMUP} trials)")
     
     def z_normalize(self, key, value):
         """Обчислити z-нормалізоване значення"""
@@ -802,10 +856,21 @@ def objective(trial):
 
 if __name__ == "__main__":
     # ============================================
+    # Запуск логування
+    # ============================================
+    
+    # Перенаправити stdout в TeeLogger
+    tee_logger.start()
+    sys.stdout = tee_logger
+    
+    log_print(f"🚀 Експеримент запущено: {EXPERIMENT_START_TIME.strftime('%Y-%m-%d %H:%M:%S UTC')}")
+    log_print(f"📝 Логи зберігаються у: {LOG_FILENAME}")
+    
+    # ============================================
     # Вивід параметрів
     # ============================================
     
-    print("="*60)
+    print("\n" + "="*60)
     print("УНІВЕРСАЛЬНИЙ СТРУКТУРНО-ПАРАМЕТРИЧНИЙ СИНТЕЗ")
     print("="*60)
     
@@ -906,7 +971,7 @@ if __name__ == "__main__":
             phase = "Warmup" if trial.number < N_WARMUP else "Composite Score"
             status = "🔥" if trial.value == best_trial.value else "✓"
             
-            print(f"\n{status} Trial {trial.number + 1}/{N_TRIALS} [{phase}]:")
+            log_print(f"{status} Trial {trial.number + 1}/{N_TRIALS} [{phase}]:")
             print(f"   Поточний Score: {trial.value:.4f}")
             print(f"   Найкращий Score: {best_trial.value:.4f} (Trial #{best_trial.number + 1})")
             print(f"   Архітектура: {trial.params['num_blocks']} блоків, "
@@ -1082,9 +1147,9 @@ if __name__ == "__main__":
             params = model_info['params']
             
             print(f"\n{'='*60}")
-            print(f"МОДЕЛЬ #{idx}/{len(all_models_to_train)} (Trial {model_info['trial_number']})")
+            log_print(f"МОДЕЛЬ #{idx}/{len(all_models_to_train)} (Trial {model_info['trial_number']})")
             print(f"{'='*60}")
-            print(f"   Composite Score (синтез): {model_info['proxy_value']:.4f}")
+            log_print(f"   Composite Score (синтез): {model_info['proxy_value']:.4f}")
             print(f"   Proxy rank: #{idx}")
             print(f"   Структура: {params['num_blocks']} блоків")
             

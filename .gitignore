@@ -31,6 +31,7 @@ results/
 # Logs
 *.log
 !bayesian_optimization/results/colab.log  # Зберігати лог Colab для відстеження прогресу
+!bayesian_optimization/results/experiment_*.log  # Зберігати логи експериментів
 !bayesian_optimization/results/analysis_report.json  # Фінальний звіт аналізу
 
 # Jupyter
