@@ -925,17 +925,27 @@ if __name__ == "__main__":
             drive_checkpoint = '/content/drive/MyDrive/Studying/Experiments/Composite_score_nas/checkpoint'
             
             if Path(drive_checkpoint).exists():
-                print("\n🔄 Знайдено checkpoint на Google Drive! Копіювання...")
+                # Перевірити чи є файли всередині
+                files = list(Path(drive_checkpoint).glob('*'))
                 
-                # Створити локальну папку results
-                Path('results').mkdir(exist_ok=True)
-                
-                # Скопіювати всі файли checkpoint
-                for file in Path(drive_checkpoint).glob('*'):
-                    if file.is_file():
-                        shutil.copy2(file, 'results/')
-                
-                print(f"   ✅ Checkpoint скопійовано з Drive")
+                if files:
+                    log_print(f"🔄 Знайдено checkpoint на Google Drive! Копіювання {len(files)} файлів...")
+                    
+                    # Створити локальну папку results
+                    Path('results').mkdir(exist_ok=True)
+                    
+                    # Скопіювати всі файли checkpoint
+                    copied_count = 0
+                    for file in files:
+                        if file.is_file():
+                            shutil.copy2(file, 'results/')
+                            copied_count += 1
+                    
+                    log_print(f"   ✅ Checkpoint скопійовано з Drive ({copied_count} файлів)")
+                else:
+                    log_print(f"⚠️  Директорія checkpoint існує, але ПОРОЖНЯ! Ігноруємо.")
+            else:
+                log_print("✅ Checkpoint на Drive не знайдено - чистий старт!")
         except Exception as e:
             print(f"   ⚠️  Не вдалося завантажити checkpoint з Drive: {e}")
     
