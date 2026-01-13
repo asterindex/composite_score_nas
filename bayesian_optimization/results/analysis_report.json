@@ -1,0 +1,262 @@
+{
+  "summary": {
+    "total_models": 50,
+    "final_loss_min": 1.0630457003911336,
+    "final_loss_max": 1.105036050081253,
+    "final_loss_mean": 1.0851080503728656,
+    "score_min": -5.40422971376464,
+    "score_max": 1.9282440730503625,
+    "score_mean": -0.4805619008667719
+  },
+  "correlation": {
+    "spearman_rho": -0.2331,
+    "interpretation": "слабка негативна кореляція"
+  },
+  "top10_by_loss": [
+    {
+      "rank": 1,
+      "trial": 18,
+      "final_val_loss": 1.0630457003911336,
+      "proxy_score": -0.5021443310895126,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "relu",
+        "optimizer": "adam"
+      }
+    },
+    {
+      "rank": 2,
+      "trial": 10,
+      "final_val_loss": 1.0671947101751964,
+      "proxy_score": 1.1164608880877496,
+      "architecture": {
+        "num_blocks": 4,
+        "activation": "relu",
+        "optimizer": "adam"
+      }
+    },
+    {
+      "rank": 3,
+      "trial": 5,
+      "final_val_loss": 1.0691188292370901,
+      "proxy_score": 1.2695264637470245,
+      "architecture": {
+        "num_blocks": 4,
+        "activation": "gelu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 4,
+      "trial": 15,
+      "final_val_loss": 1.069681242108345,
+      "proxy_score": -0.9929709889630036,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "relu",
+        "optimizer": "adam"
+      }
+    },
+    {
+      "rank": 5,
+      "trial": 24,
+      "final_val_loss": 1.070764227045907,
+      "proxy_score": 1.0430488298268759,
+      "architecture": {
+        "num_blocks": 4,
+        "activation": "leaky_relu",
+        "optimizer": "adamw"
+      }
+    },
+    {
+      "rank": 6,
+      "trial": 25,
+      "final_val_loss": 1.071659439139896,
+      "proxy_score": 0.7576805872835483,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "leaky_relu",
+        "optimizer": "adamw"
+      }
+    },
+    {
+      "rank": 7,
+      "trial": 16,
+      "final_val_loss": 1.072224305735694,
+      "proxy_score": -1.0010108278448744,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "relu",
+        "optimizer": "adam"
+      }
+    },
+    {
+      "rank": 8,
+      "trial": 7,
+      "final_val_loss": 1.0729531248410542,
+      "proxy_score": 1.4046576652389304,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "gelu",
+        "optimizer": "adam"
+      }
+    },
+    {
+      "rank": 9,
+      "trial": 22,
+      "final_val_loss": 1.073588992158572,
+      "proxy_score": 0.11674132116716412,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "leaky_relu",
+        "optimizer": "adamw"
+      }
+    },
+    {
+      "rank": 10,
+      "trial": 21,
+      "final_val_loss": 1.0738652447859447,
+      "proxy_score": -1.0013695401098914,
+      "architecture": {
+        "num_blocks": 3,
+        "activation": "leaky_relu",
+        "optimizer": "adamw"
+      }
+    }
+  ],
+  "top10_by_score": [
+    {
+      "rank": 1,
+      "trial": 49,
+      "proxy_score": -5.40422971376464,
+      "final_val_loss": 1.0933524055613413,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "gelu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 2,
+      "trial": 40,
+      "proxy_score": -3.7748622186850933,
+      "final_val_loss": 1.099671824110879,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 3,
+      "trial": 46,
+      "proxy_score": -3.4783598639081896,
+      "final_val_loss": 1.0889820224708981,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "gelu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 4,
+      "trial": 48,
+      "proxy_score": -3.367695590288027,
+      "final_val_loss": 1.083254560828209,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "gelu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 5,
+      "trial": 34,
+      "proxy_score": -3.14450102648962,
+      "final_val_loss": 1.0890943888160918,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "adamw"
+      }
+    },
+    {
+      "rank": 6,
+      "trial": 39,
+      "proxy_score": -2.963139298047031,
+      "final_val_loss": 1.105036050081253,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 7,
+      "trial": 42,
+      "proxy_score": -2.5343913577873627,
+      "final_val_loss": 1.0964468816916149,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 8,
+      "trial": 45,
+      "proxy_score": -2.5202592463954128,
+      "final_val_loss": 1.0957614531119664,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 9,
+      "trial": 41,
+      "proxy_score": -1.9590532007457209,
+      "final_val_loss": 1.0973562432659998,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "sgd"
+      }
+    },
+    {
+      "rank": 10,
+      "trial": 30,
+      "proxy_score": -1.7020591166390375,
+      "final_val_loss": 1.0910655972030427,
+      "architecture": {
+        "num_blocks": 2,
+        "activation": "leaky_relu",
+        "optimizer": "adamw"
+      }
+    }
+  ],
+  "best_architecture": {
+    "trial": 18,
+    "final_val_loss": 1.0630457003911336,
+    "proxy_score": -0.5021443310895126,
+    "architecture": {
+      "num_blocks": 3,
+      "filters_0": 64,
+      "kernel_0": 3,
+      "filters_1": 64,
+      "kernel_1": 3,
+      "filters_2": 16,
+      "kernel_2": 5,
+      "fc_size": 128,
+      "dropout": 0.7,
+      "activation": "relu",
+      "lr": 0.001,
+      "batch_size": 16,
+      "optimizer": "adam",
+      "weight_decay": 1e-05
+    }
+  },
+  "worst_predictions": [],
+  "best_predictions": []
+}
