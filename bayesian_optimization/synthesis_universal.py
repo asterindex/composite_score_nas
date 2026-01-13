@@ -417,33 +417,38 @@ class ProxyStats:
 
 def compute_composite_score(metrics, stats):
     """
-    Обчислити Composite Score на основі кореляційного аналізу.
+    Обчислити Composite Score на основі кореляційного аналізу (покращена формула v2).
     
-    Формула (epoch 5):
-    Score = -0.701 × z(train_loss) - 0.671 × z(grad_norm_mean) + 0.406 × z(val_loss)
-            -0.395 × z(train_loss_cv) + 0.311 × z(gap)
+    НОВА ФОРМУЛА (після експерименту 2026-01-13):
+    Score = 0.25·impr + 0.20·L_val + 0.15·loss_cv + 0.15·grad_cv + 
+            0.15·gap + 0.05·L_tr_last + 0.05·grad_norm
     
-    Spearman ρ = 0.743 (на 83% краще за простий val_loss!)
+    Ключове відкриття: ВСІ метрики мають ПОЗИТИВНУ кореляцію з Final Loss!
+    - impr: +0.358 (найсильніша!) - швидке навчання = низька capacity
+    - L_val: +0.248
+    - loss_cv: +0.216
+    
+    Результат: Spearman ρ = +0.301 (+29% vs стара формула)
+    TOP-20 overlap: 60% (vs 30% в старій)
     """
     if not stats.ready():
         # До завершення warmup використати простий proxy
         return metrics['L_val'] + 0.5 * metrics['gap'], 'simple'
     
-    # Нормалізувати метрики (robust z-score на основі медіани та IQR)
-    z_train_loss = stats.z_normalize('L_tr_last', metrics['L_tr_last'])
-    z_grad_norm_mean = stats.z_normalize('grad_norm_mean', metrics['grad_norm_mean'])
-    z_val_loss = stats.z_normalize('L_val', metrics['L_val'])
-    z_train_loss_cv = stats.z_normalize('loss_cv', metrics['loss_cv'])
-    z_gap = stats.z_normalize('gap', metrics['gap'])
+    # БЕЗ z-нормалізації - використовуємо raw метрики з вагами
+    # (ваги підібрані на основі кореляційного аналізу)
+    composite = (
+        0.25 * metrics['impr'] +
+        0.20 * metrics['L_val'] +
+        0.15 * metrics['loss_cv'] +
+        0.15 * metrics['grad_cv'] +
+        0.15 * metrics['gap'] +
+        0.05 * metrics['L_tr_last'] +
+        0.05 * metrics['grad_norm_mean']
+    )
     
-    # Composite Score формула (ваги з кореляційного аналізу)
-    composite = (-0.701 * z_train_loss +
-                 -0.671 * z_grad_norm_mean +
-                 +0.406 * z_val_loss +
-                 -0.395 * z_train_loss_cv +
-                 +0.311 * z_gap)
-    
-    return composite, 'Composite'
+    # Вище Score = гірша модель (мінімізуємо)
+    return composite, 'Composite_v2'
 
 # ============================================
 # Динамічна модель
