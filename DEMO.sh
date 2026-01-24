@@ -28,7 +28,7 @@ echo "Результати збережено в: output/"
 echo ""
 
 echo -e "${BLUE}3. Аналіз результатів${NC}"
-python3 main.py --mode analyze
+python3 analyze.py
 echo ""
 
 echo -e "${GREEN}✅ Демо завершено!${NC}"

@@ -73,12 +73,19 @@ python main.py --mode train-top3 --output-dir experiments/run1
 
 **Аналіз та візуалізація:**
 ```bash
-python main.py --mode analyze
+python3 analyze.py
+# або:
+python3 main.py --mode analyze
 ```
 
 **З детальним виводом:**
 ```bash
-python main.py --mode analyze --verbose
+python3 analyze.py --verbose
+```
+
+**З альтернативної папки:**
+```bash
+python3 analyze.py --output-dir experiments/run1
 ```
 
 ### Clean - Очищення результатів
@@ -107,7 +114,7 @@ python main.py --mode clean --output-dir experiments/run1 --confirm
 python3 main.py
 
 # 2. Перевірка результатів
-python3 main.py --mode analyze
+python3 analyze.py
 
 # 3. Очищення
 python3 main.py --mode clean --confirm
@@ -120,7 +127,7 @@ python3 main.py --mode clean --confirm
 python3 main.py --mode full
 
 # 2. Аналіз результатів
-python3 main.py --mode analyze
+python3 analyze.py
 
 # 3. Тренування топ-3 (50+ хвилин)
 python3 main.py --mode train-top3
@@ -139,9 +146,9 @@ python3 main.py --mode full --output-dir output/exp2
 python3 main.py --mode synthesis --samples 1500 --output-dir output/exp3
 
 # Аналіз кожного
-python3 main.py --mode analyze --output-dir output/exp1
-python3 main.py --mode analyze --output-dir output/exp2
-python3 main.py --mode analyze --output-dir output/exp3
+python3 analyze.py --output-dir output/exp1
+python3 analyze.py --output-dir output/exp2
+python3 analyze.py --output-dir output/exp3
 ```
 
 ### Сценарій 4: Відновлення після переривання

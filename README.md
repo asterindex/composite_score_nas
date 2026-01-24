@@ -8,6 +8,7 @@
 composite_score_nas/
 ├── requirements.txt          # Залежності
 ├── main.py                   # 🆕 CLI для запуску експериментів
+├── analyze.py                # 🆕 Швидкий запуск аналізу
 ├── src/                      # 🆕 Код експерименту
 │   ├── __init__.py
 │   ├── synthesis_universal.py    # Основний пайплайн синтезу з DSS
@@ -68,6 +69,8 @@ python3 main.py --mode synthesis --trials 50 --warmup 15 --samples 1000
 ### 4. Аналіз результатів
 
 ```bash
+python3 analyze.py
+# або:
 python3 main.py --mode analyze
 ```
 
