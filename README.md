@@ -48,8 +48,10 @@ unzip VisDrone2019-DET-val.zip -d data/val/
 
 ### 3. Запуск експерименту
 
-**Швидкий тест (5 trials, ~3-5 хвилин):**
+**Швидкий тест (за замовчуванням, 5 trials, ~3-5 хвилин):**
 ```bash
+python3 main.py
+# або явно:
 python3 main.py --mode fast
 ```
 

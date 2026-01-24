@@ -36,6 +36,7 @@ def setup_args():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Приклади:
+  %(prog)s                                     # Швидкий тест (за замовчуванням)
   %(prog)s --mode fast                         # Швидкий тест (5 trials)
   %(prog)s --mode full                         # Повний експеримент (30 trials)
   %(prog)s --mode synthesis --trials 10        # Користувацька кількість
@@ -49,9 +50,9 @@ def setup_args():
     parser.add_argument(
         '--mode',
         type=str,
-        required=True,
+        default='fast',
         choices=['fast', 'full', 'synthesis', 'train-top3', 'analyze', 'clean', 'info'],
-        help='Режим роботи'
+        help='Режим роботи (default: fast)'
     )
     
     # Параметри для synthesis
@@ -381,8 +382,8 @@ def mode_info(args):
     print("   1. Завантажте датасет:")
     print("      https://github.com/VisDrone/VisDrone-Dataset")
     print()
-    print("   2. Швидкий тест (5 trials, ~3-5 хв):")
-    print("      python3 main.py --mode fast")
+    print("   2. Швидкий тест (за замовчуванням, ~3-5 хв):")
+    print("      python3 main.py")
     print()
     print("   3. Повний експеримент (30 trials, ~15-18 хв):")
     print("      python3 main.py --mode full")

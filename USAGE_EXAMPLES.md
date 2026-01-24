@@ -2,14 +2,20 @@
 
 ## Базові команди
 
-### 1. Інформація про проект
+### 1. Швидкий старт (за замовчуванням)
 ```bash
-python main.py --mode info
+python3 main.py
+```
+Запустить швидкий тест (5 trials) без додаткових параметрів.
+
+### 2. Інформація про проект
+```bash
+python3 main.py --mode info
 ```
 
-### 2. Довідка по параметрах
+### 3. Довідка по параметрах
 ```bash
-python main.py --help
+python3 main.py --help
 ```
 
 ## Режими роботи
@@ -97,8 +103,8 @@ python main.py --mode clean --output-dir experiments/run1 --confirm
 ### Сценарій 1: Швидке тестування
 
 ```bash
-# 1. Швидкий тест (3-5 хвилин)
-python3 main.py --mode fast
+# 1. Швидкий тест (за замовчуванням, 3-5 хвилин)
+python3 main.py
 
 # 2. Перевірка результатів
 python3 main.py --mode analyze
