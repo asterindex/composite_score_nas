@@ -1,0 +1,24 @@
+# Results
+correlation_results/
+*.csv
+*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Plots
+*.png
+*.jpg
+*.pdf
+
+# Keep README and scripts
+!README.md
+!*.py
