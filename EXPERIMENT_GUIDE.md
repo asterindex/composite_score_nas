@@ -98,10 +98,10 @@ python quick_test.py
 - ✅ Тренування працює
 - ✅ DSS обчислюється
 
-⚠️ **Після тесту видаліть `results/` перед повним запуском!**
+⚠️ **Після тесту видаліть `output/` перед повним запуском!**
 
 ```bash
-rm -rf results/
+rm -rf output/
 ```
 
 ### Повний експеримент (30 trials)
@@ -141,10 +141,10 @@ python synthesis_universal.py
 ```
 
 **Результати:**
-- `results/optuna_study.pkl` - Optuna study
-- `results/proxy_stats.json` - Статистика калібрації
-- `results/synthesis_results.json` - Топ-3 архітектури
-- `results/experiment_*.log` - Повний лог
+- `output/optuna_study.pkl` - Optuna study
+- `output/proxy_stats.json` - Статистика калібрації
+- `output/synthesis_results.json` - Топ-3 архітектури
+- `output/experiment_*.log` - Повний лог
 
 ---
 
@@ -202,8 +202,8 @@ lr:
 ```
 
 **Графіки:**
-- `results/convergence.png` - Конвергенція trials
-- `results/analysis_report.json` - Детальний звіт
+- `output/convergence.png` - Конвергенція trials
+- `output/analysis_report.json` - Детальний звіт
 
 ---
 
@@ -241,8 +241,8 @@ python train_top3_models.py
 ```
 
 **Результати:**
-- `results/trained_models/trial_*_best.pth` - Найкращі моделі
-- `results/final_results.json` - Фінальні метрики
+- `output/trained_models/trial_*_best.pth` - Найкращі моделі
+- `output/final_results.json` - Фінальні метрики
 
 ---
 
@@ -324,7 +324,7 @@ batch_size = trial.suggest_categorical('batch_size', [8, 16])  # Замість 
 
 ```bash
 # Видаліть пошкоджений файл
-rm results/optuna_study.pkl
+rm output/optuna_study.pkl
 
 # Перезапустіть експеримент
 python synthesis_universal.py

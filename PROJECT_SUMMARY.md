@@ -204,12 +204,11 @@ composite_score_nas/
 ├── requirements.txt            # 11 залежностей
 ├── README.md                   # 149 рядків
 ├── EXPERIMENT_GUIDE.md         # 428 рядків
-├── COLAB_GUIDE.md              # 112 рядків
 ├── .gitignore                  # 48 рядків
 ├── data/
 │   ├── train/                 # 6,471 зображень
 │   └── val/                   # 548 зображень
-└── results/
+└── output/
     ├── optuna_study.pkl
     ├── proxy_stats.json
     ├── synthesis_results.json

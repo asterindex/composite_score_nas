@@ -41,7 +41,7 @@ MAX_SAMPLES = 700
 VAL_SUBSET = 200
 IMG_SIZE = 320
 
-RESULTS_DIR = Path('results')
+RESULTS_DIR = Path('output')
 CHECKPOINT_FILE = RESULTS_DIR / 'optuna_study.pkl'
 STATS_FILE = RESULTS_DIR / 'proxy_stats.json'
 RESULTS_FILE = RESULTS_DIR / 'synthesis_results.json'

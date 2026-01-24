@@ -12,7 +12,7 @@ composite_score_nas/
 ├── data/                    # Датасет VisDrone2019
 │   ├── train/
 │   └── val/
-└── results/                 # Результати експериментів
+└── output/                  # Результати експериментів
     ├── optuna_study.pkl
     ├── proxy_stats.json
     └── synthesis_results.json
