@@ -36,8 +36,9 @@ def setup_args():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Приклади:
-  %(prog)s --mode synthesis                    # Повний експеримент (30 trials)
-  %(prog)s --mode synthesis --trials 5 --quick # Швидкий тест
+  %(prog)s --mode fast                         # Швидкий тест (5 trials)
+  %(prog)s --mode full                         # Повний експеримент (30 trials)
+  %(prog)s --mode synthesis --trials 10        # Користувацька кількість
   %(prog)s --mode train-top3                   # Тренування топ-3
   %(prog)s --mode analyze                      # Аналіз результатів
   %(prog)s --mode clean --confirm              # Очистити output/
@@ -49,7 +50,7 @@ def setup_args():
         '--mode',
         type=str,
         required=True,
-        choices=['synthesis', 'train-top3', 'analyze', 'clean', 'info'],
+        choices=['fast', 'full', 'synthesis', 'train-top3', 'analyze', 'clean', 'info'],
         help='Режим роботи'
     )
     
@@ -96,11 +97,6 @@ def setup_args():
         help='Random seed для відтворюваності (default: 42)'
     )
     
-    parser.add_argument(
-        '--quick',
-        action='store_true',
-        help='Швидкий режим (менше samples для тестування)'
-    )
     
     parser.add_argument(
         '--resume',
@@ -144,30 +140,73 @@ def print_config(args):
     """Друк конфігурації"""
     print("📋 Конфігурація:")
     print(f"   Режим:              {args.mode}")
-    print(f"   Trials:             {args.trials}")
-    print(f"   Warmup trials:      {args.warmup}")
-    print(f"   Epochs per trial:   {args.epochs}")
-    print(f"   Train samples:      {args.samples}")
-    print(f"   Val samples:        {args.val_samples}")
-    print(f"   Random seed:        {args.seed}")
-    print(f"   Output dir:         {args.output_dir}")
-    print(f"   Resume:             {'Так' if args.resume else 'Ні'}")
-    print(f"   Quick mode:         {'Так' if args.quick else 'Ні'}")
+    if hasattr(args, 'trials'):
+        print(f"   Trials:             {args.trials}")
+    if hasattr(args, 'warmup'):
+        print(f"   Warmup trials:      {args.warmup}")
+    if hasattr(args, 'epochs'):
+        print(f"   Epochs per trial:   {args.epochs}")
+    if hasattr(args, 'samples'):
+        print(f"   Train samples:      {args.samples}")
+    if hasattr(args, 'val_samples'):
+        print(f"   Val samples:        {args.val_samples}")
+    if hasattr(args, 'seed'):
+        print(f"   Random seed:        {args.seed}")
+    if hasattr(args, 'output_dir'):
+        print(f"   Output dir:         {args.output_dir}")
+    if hasattr(args, 'resume'):
+        print(f"   Resume:             {'Так' if args.resume else 'Ні'}")
     print()
+
+
+def mode_fast(args):
+    """Режим швидкого тесту (5 trials)"""
+    print_header("⚡ Швидкий тест (Fast Mode)")
+    
+    # Встановлюємо параметри для швидкого режиму
+    args.trials = 5
+    args.warmup = 3
+    args.samples = 200
+    args.val_samples = 50
+    
+    print("⚡ Швидкий режим активовано!")
+    print(f"   Trials: {args.trials}")
+    print(f"   Warmup: {args.warmup}")
+    print(f"   Train samples: {args.samples}")
+    print(f"   Val samples: {args.val_samples}")
+    print(f"   Очікуваний час: ~3-5 хвилин\n")
+    
+    # Викликаємо synthesis
+    mode_synthesis(args)
+
+
+def mode_full(args):
+    """Режим повного експерименту (30 trials)"""
+    print_header("🔬 Повний експеримент (Full Mode)")
+    
+    # Встановлюємо параметри для повного режиму
+    args.trials = 30
+    args.warmup = 10
+    args.samples = 700
+    args.val_samples = 200
+    
+    print("🔬 Повний режим активовано!")
+    print(f"   Trials: {args.trials}")
+    print(f"   Warmup: {args.warmup}")
+    print(f"   Train samples: {args.samples}")
+    print(f"   Val samples: {args.val_samples}")
+    print(f"   Очікуваний час: ~15-18 хвилин\n")
+    
+    # Викликаємо synthesis
+    mode_synthesis(args)
 
 
 def mode_synthesis(args):
     """Режим синтезу архітектур"""
-    print_header("🔬 Detection Stability Score - Synthesis")
-    
-    # Налаштування для quick mode
-    if args.quick:
-        print("⚡ Швидкий режим активовано!")
-        args.samples = min(args.samples, 200)
-        args.val_samples = min(args.val_samples, 50)
-        print(f"   Зменшено samples: train={args.samples}, val={args.val_samples}\n")
-    
-    print_config(args)
+    # Якщо викликається напряму (не через fast/full)
+    if args.mode == 'synthesis':
+        print_header("🔬 Detection Stability Score - Synthesis")
+        print_config(args)
     
     # Перевірка dataset
     data_dir = Path('data')
@@ -342,14 +381,17 @@ def mode_info(args):
     print("   1. Завантажте датасет:")
     print("      https://github.com/VisDrone/VisDrone-Dataset")
     print()
-    print("   2. Запустіть синтез:")
-    print("      python main.py --mode synthesis")
+    print("   2. Швидкий тест (5 trials, ~3-5 хв):")
+    print("      python3 main.py --mode fast")
     print()
-    print("   3. Тренуйте топ-3:")
-    print("      python main.py --mode train-top3")
+    print("   3. Повний експеримент (30 trials, ~15-18 хв):")
+    print("      python3 main.py --mode full")
     print()
-    print("   4. Аналізуйте результати:")
-    print("      python main.py --mode analyze")
+    print("   4. Тренуйте топ-3:")
+    print("      python3 main.py --mode train-top3")
+    print()
+    print("   5. Аналізуйте результати:")
+    print("      python3 main.py --mode analyze")
     print()
     
     print("\n📊 Detection Stability Score (DSS):")
@@ -379,6 +421,8 @@ def main():
     
     # Маршрутизація по режимах
     modes = {
+        'fast': mode_fast,
+        'full': mode_full,
         'synthesis': mode_synthesis,
         'train-top3': mode_train_top3,
         'analyze': mode_analyze,

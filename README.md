@@ -48,38 +48,38 @@ unzip VisDrone2019-DET-val.zip -d data/val/
 
 ### 3. Запуск експерименту
 
-**Повний експеримент (30 trials, ~15-18 хвилин):**
-```bash
-python main.py --mode synthesis
-```
-
 **Швидкий тест (5 trials, ~3-5 хвилин):**
 ```bash
-python main.py --mode synthesis --trials 5 --quick
+python3 main.py --mode fast
 ```
 
-**Налаштування параметрів:**
+**Повний експеримент (30 trials, ~15-18 хвилин):**
 ```bash
-python main.py --mode synthesis --trials 50 --warmup 15 --samples 1000
+python3 main.py --mode full
+```
+
+**Користувацька конфігурація:**
+```bash
+python3 main.py --mode synthesis --trials 50 --warmup 15 --samples 1000
 ```
 
 ### 4. Аналіз результатів
 
 ```bash
-python main.py --mode analyze
+python3 main.py --mode analyze
 ```
 
 ### 5. Повне навчання топ-3
 
 ```bash
-python main.py --mode train-top3
+python3 main.py --mode train-top3
 ```
 
 ### 6. Інформація та допомога
 
 ```bash
-python main.py --mode info
-python main.py --help
+python3 main.py --mode info
+python3 main.py --help
 ```
 
 ## 📊 Detection Stability Score (DSS)

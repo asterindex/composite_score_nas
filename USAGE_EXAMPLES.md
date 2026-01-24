@@ -16,39 +16,39 @@ python main.py --help
 
 ### Synthesis - Синтез архітектур
 
-**Повний експеримент (30 trials):**
-```bash
-python main.py --mode synthesis
-```
-
 **Швидкий тест (5 trials):**
 ```bash
-python main.py --mode synthesis --trials 5 --quick
+python3 main.py --mode fast
 ```
 
-**Налаштування параметрів:**
+**Повний експеримент (30 trials):**
+```bash
+python3 main.py --mode full
+```
+
+**Користувацька конфігурація:**
 ```bash
 # 50 trials з більшим датасетом
-python main.py --mode synthesis --trials 50 --samples 1000 --val-samples 300
+python3 main.py --mode synthesis --trials 50 --samples 1000 --val-samples 300
 
 # Зміна warmup фази
-python main.py --mode synthesis --warmup 15
+python3 main.py --mode synthesis --warmup 15
 
 # Більше епох для кожного trial
-python main.py --mode synthesis --epochs 2
+python3 main.py --mode synthesis --epochs 2
 
 # Інший seed
-python main.py --mode synthesis --seed 123
+python3 main.py --mode synthesis --seed 123
 ```
 
 **Продовження експерименту:**
 ```bash
-python main.py --mode synthesis --resume
+python3 main.py --mode synthesis --resume
 ```
 
 **Збереження в іншу папку:**
 ```bash
-python main.py --mode synthesis --output-dir experiments/run1
+python3 main.py --mode synthesis --output-dir experiments/run1
 ```
 
 ### Train-top3 - Повне тренування
@@ -98,72 +98,78 @@ python main.py --mode clean --output-dir experiments/run1 --confirm
 
 ```bash
 # 1. Швидкий тест (3-5 хвилин)
-python main.py --mode synthesis --trials 5 --quick
+python3 main.py --mode fast
 
 # 2. Перевірка результатів
-python main.py --mode analyze
+python3 main.py --mode analyze
 
 # 3. Очищення
-python main.py --mode clean --confirm
+python3 main.py --mode clean --confirm
 ```
 
 ### Сценарій 2: Повний експеримент
 
 ```bash
 # 1. Повний синтез (15-18 хвилин)
-python main.py --mode synthesis
+python3 main.py --mode full
 
 # 2. Аналіз результатів
-python main.py --mode analyze
+python3 main.py --mode analyze
 
 # 3. Тренування топ-3 (50+ хвилин)
-python main.py --mode train-top3
+python3 main.py --mode train-top3
 ```
 
 ### Сценарій 3: Порівняння різних конфігурацій
 
 ```bash
-# Експеримент 1: базовий
-python main.py --mode synthesis --output-dir output/exp1
+# Експеримент 1: швидкий
+python3 main.py --mode fast --output-dir output/exp1
 
-# Експеримент 2: більше trials
-python main.py --mode synthesis --trials 50 --output-dir output/exp2
+# Експеримент 2: повний
+python3 main.py --mode full --output-dir output/exp2
 
 # Експеримент 3: більше даних
-python main.py --mode synthesis --samples 1500 --output-dir output/exp3
+python3 main.py --mode synthesis --samples 1500 --output-dir output/exp3
 
 # Аналіз кожного
-python main.py --mode analyze --output-dir output/exp1
-python main.py --mode analyze --output-dir output/exp2
-python main.py --mode analyze --output-dir output/exp3
+python3 main.py --mode analyze --output-dir output/exp1
+python3 main.py --mode analyze --output-dir output/exp2
+python3 main.py --mode analyze --output-dir output/exp3
 ```
 
 ### Сценарій 4: Відновлення після переривання
 
 ```bash
 # Якщо експеримент було перервано
-python main.py --mode synthesis --resume
+python3 main.py --mode synthesis --resume
 ```
 
 ## Параметри за замовчуванням
 
 ```python
---mode          # Обов'язковий: synthesis/train-top3/analyze/clean/info
---trials 30     # Кількість trials
---warmup 10     # Warmup trials
---epochs 1      # Епох на trial
---samples 700   # Train samples
---val-samples 200  # Val samples
---seed 42       # Random seed
---output-dir output/  # Папка результатів
+# Режими
+--mode fast         # 5 trials, 200 train, 50 val, 3 warmup
+--mode full         # 30 trials, 700 train, 200 val, 10 warmup
+--mode synthesis    # Користувацька конфігурація
+
+# Параметри
+--trials 30         # Кількість trials
+--warmup 10         # Warmup trials
+--epochs 1          # Епох на trial
+--samples 700       # Train samples
+--val-samples 200   # Val samples
+--seed 42           # Random seed
+--output-dir output/ # Папка результатів
 ```
 
 ## Очікуваний час виконання
 
 | Режим | Apple M2 Pro (MPS) | CPU |
 |-------|-------------------|-----|
-| synthesis (30 trials) | ~15-18 хв | ~45-50 хв |
-| synthesis (5 trials, --quick) | ~3-5 хв | ~10-15 хв |
+| fast (5 trials) | ~3-5 хв | ~10-15 хв |
+| full (30 trials) | ~15-18 хв | ~45-50 хв |
+| synthesis (50 trials) | ~25-30 хв | ~75-85 хв |
 | train-top3 | ~50-60 хв | ~2-3 години |
 | analyze | ~10-30 сек | ~10-30 сек |
 
