@@ -20,7 +20,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-# Імпорт з synthesis_universal
+# Імпорт з synthesis_universal (той самий модуль src/)
 from synthesis_universal import (
     DynamicDetector, get_dataloaders, evaluate, log_print,
     set_seed, DEVICE, DEVICE_NAME, RESULTS_DIR, CHECKPOINT_FILE,

@@ -204,7 +204,9 @@ def mode_synthesis(args):
     os.environ['NAS_OUTPUT_DIR'] = args.output_dir
     
     try:
-        # Динамічний імпорт synthesis_universal
+        # Динамічний імпорт synthesis_universal з src/
+        import sys
+        sys.path.insert(0, 'src')
         import synthesis_universal
         print("\n✅ Синтез завершено!")
         print(f"   Результати збережено в: {args.output_dir}/")
@@ -232,6 +234,8 @@ def mode_train_top3(args):
     os.environ['NAS_OUTPUT_DIR'] = args.output_dir
     
     try:
+        import sys
+        sys.path.insert(0, 'src')
         import train_top3_models
         print("\n✅ Тренування завершено!")
         print(f"   Моделі збережено в: {args.output_dir}/trained_models/")
@@ -258,6 +262,8 @@ def mode_analyze(args):
     os.environ['NAS_OUTPUT_DIR'] = args.output_dir
     
     try:
+        import sys
+        sys.path.insert(0, 'src')
         import analyze_results
         print("\n✅ Аналіз завершено!")
         print(f"   Графіки збережено в: {args.output_dir}/")
@@ -316,10 +322,11 @@ def mode_info(args):
     print("""
     composite_score_nas/
     ├── main.py                  # 🆕 Головний скрипт запуску
-    ├── synthesis_universal.py   # Пайплайн синтезу з DSS
-    ├── train_top3_models.py     # Повне тренування топ-3
-    ├── analyze_results.py       # Аналіз convergence
-    ├── dataset_utils.py         # Утиліти для VisDrone
+    ├── src/                     # Код експерименту
+    │   ├── synthesis_universal.py   # Пайплайн синтезу з DSS
+    │   ├── train_top3_models.py     # Повне тренування топ-3
+    │   ├── analyze_results.py       # Аналіз convergence
+    │   └── dataset_utils.py         # Утиліти для VisDrone
     ├── requirements.txt         # Залежності
     ├── data/                    # VisDrone2019-DET
     │   ├── train/

@@ -24,6 +24,10 @@ wheels/
 .installed.cfg
 *.egg
 
+# Byte-compiled / optimized / DLL files
+src/__pycache__/
+src/*.py[cod]
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
