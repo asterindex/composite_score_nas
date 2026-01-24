@@ -7,15 +7,19 @@
 ```
 composite_score_nas/
 ├── requirements.txt          # Залежності
+├── main.py                   # 🆕 CLI для запуску експериментів
 ├── synthesis_universal.py    # Основний пайплайн синтезу з DSS
 ├── train_top3_models.py     # Повне навчання топ-3 архітектур
+├── analyze_results.py       # Аналіз і візуалізація результатів
+├── dataset_utils.py         # Утиліти для VisDrone
 ├── data/                    # Датасет VisDrone2019
 │   ├── train/
 │   └── val/
 └── output/                  # Результати експериментів
     ├── optuna_study.pkl
     ├── proxy_stats.json
-    └── synthesis_results.json
+    ├── synthesis_results.json
+    └── experiment_*.log
 ```
 
 ## 🚀 Швидкий старт
@@ -40,26 +44,40 @@ unzip VisDrone2019-DET-train.zip -d data/train/
 unzip VisDrone2019-DET-val.zip -d data/val/
 ```
 
-### 3. Запуск синтезу
+### 3. Запуск експерименту
 
+**Повний експеримент (30 trials, ~15-18 хвилин):**
 ```bash
-python synthesis_universal.py
+python main.py --mode synthesis
 ```
 
-**Параметри:**
-- `N_TRIALS = 30` - кількість trials для Bayesian Optimization
-- `MAX_SAMPLES = 700` - розмір тренувальної підмножини
-- `EPOCHS_PER_TRIAL = 1` - епохи для low-fidelity evaluation
-- `SEED = 42` - для відтворюваності
+**Швидкий тест (5 trials, ~3-5 хвилин):**
+```bash
+python main.py --mode synthesis --trials 5 --quick
+```
 
-**Очікуваний час:**
-- Локально (M2 Pro MPS): ~15-18 хвилин
-- CPU-only: ~45-50 хвилин
+**Налаштування параметрів:**
+```bash
+python main.py --mode synthesis --trials 50 --warmup 15 --samples 1000
+```
 
-### 4. Повне навчання топ-3
+### 4. Аналіз результатів
 
 ```bash
-python train_top3_models.py
+python main.py --mode analyze
+```
+
+### 5. Повне навчання топ-3
+
+```bash
+python main.py --mode train-top3
+```
+
+### 6. Інформація та допомога
+
+```bash
+python main.py --mode info
+python main.py --help
 ```
 
 ## 📊 Detection Stability Score (DSS)

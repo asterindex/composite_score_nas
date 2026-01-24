@@ -31,17 +31,18 @@ from optuna.samplers import TPESampler
 # КОНФІГУРАЦІЯ
 # ============================================================================
 
-SEED = 42
-N_TRIALS = 30
-N_WARMUP = 10
-EPOCHS_PER_TRIAL = 1
+# Параметри можуть бути перевизначені через environment variables (main.py)
+SEED = int(os.getenv('NAS_SEED', '42'))
+N_TRIALS = int(os.getenv('NAS_N_TRIALS', '30'))
+N_WARMUP = int(os.getenv('NAS_N_WARMUP', '10'))
+EPOCHS_PER_TRIAL = int(os.getenv('NAS_EPOCHS_PER_TRIAL', '1'))
 K_BATCHES = 10
 
-MAX_SAMPLES = 700
-VAL_SUBSET = 200
+MAX_SAMPLES = int(os.getenv('NAS_MAX_SAMPLES', '700'))
+VAL_SUBSET = int(os.getenv('NAS_VAL_SUBSET', '200'))
 IMG_SIZE = 320
 
-RESULTS_DIR = Path('output')
+RESULTS_DIR = Path(os.getenv('NAS_OUTPUT_DIR', 'output'))
 CHECKPOINT_FILE = RESULTS_DIR / 'optuna_study.pkl'
 STATS_FILE = RESULTS_DIR / 'proxy_stats.json'
 RESULTS_FILE = RESULTS_DIR / 'synthesis_results.json'
