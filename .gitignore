@@ -39,6 +39,9 @@ data/
 *.png
 *.jpeg
 
+# Article
+article/
+
 # Results (except specific files)
 output/
 !output/.gitkeep
