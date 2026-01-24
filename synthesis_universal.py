@@ -46,16 +46,10 @@ CHECKPOINT_FILE = RESULTS_DIR / 'optuna_study.pkl'
 STATS_FILE = RESULTS_DIR / 'proxy_stats.json'
 RESULTS_FILE = RESULTS_DIR / 'synthesis_results.json'
 
-# Автоматичне визначення платформи
-try:
-    import google.colab
-    IS_COLAB = True
-    DATA_ROOT = Path('/content/data')
-    DRIVE_ROOT = Path('/content/drive/MyDrive/Studying/Experiments/Composite_score_nas')
-except ImportError:
-    IS_COLAB = False
-    DATA_ROOT = Path('data')
-    DRIVE_ROOT = None
+# Локальна конфігурація
+IS_COLAB = False
+DATA_ROOT = Path('data')
+DRIVE_ROOT = None
 
 # Визначення device
 if torch.cuda.is_available():

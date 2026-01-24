@@ -32,10 +32,6 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Google Colab
-
-Дивіться [COLAB_GUIDE.md](COLAB_GUIDE.md)
-
 ---
 
 ## 2. Завантаження датасету
@@ -124,7 +120,6 @@ python synthesis_universal.py
 
 **Очікуваний час:**
 - 🖥️ M2 Pro (MPS): 15-18 хвилин
-- 🔥 T4 GPU: 10-12 хвилин
 - 💻 CPU: 45-50 хвилин
 
 **Під час виконання:**
