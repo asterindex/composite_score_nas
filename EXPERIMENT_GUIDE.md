@@ -112,7 +112,7 @@ python synthesis_universal.py
 
 **Параметри:**
 - `N_TRIALS = 30` - кількість спроб
-- `N_WARMUP = 10` - warmup для калібрації
+- `N_WARMUP = 10` - warmup для калібрування
 - `EPOCHS_PER_TRIAL = 1` - швидка оцінка
 - `MAX_SAMPLES = 700` - підмножина train
 - `VAL_SUBSET = 200` - фіксована валідація
@@ -142,7 +142,7 @@ python synthesis_universal.py
 
 **Результати:**
 - `output/optuna_study.pkl` - Optuna study
-- `output/proxy_stats.json` - Статистика калібрації
+- `output/proxy_stats.json` - Статистика калібрування
 - `output/synthesis_results.json` - Топ-3 архітектури
 - `output/experiment_*.log` - Повний лог
 

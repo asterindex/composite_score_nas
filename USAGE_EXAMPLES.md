@@ -172,7 +172,7 @@ python main.py --mode synthesis --resume
 ```
 output/
 ├── optuna_study.pkl           # Optuna study (для --resume)
-├── proxy_stats.json           # Калібровні статистики
+├── proxy_stats.json           # Статистики калібрування
 ├── synthesis_results.json     # Топ-3 архітектури
 ├── experiment_YYYYMMDD_HHMMSS.log  # Детальний лог
 ├── convergence.png            # Графік convergence (після analyze)

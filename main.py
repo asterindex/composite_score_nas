@@ -65,7 +65,7 @@ def setup_args():
         '--warmup',
         type=int,
         default=10,
-        help='Кількість warmup trials для калібрації (default: 10)'
+        help='Кількість warmup trials для калібрування (default: 10)'
     )
     
     parser.add_argument(
